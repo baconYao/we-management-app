@@ -1,5 +1,3 @@
-import json
-from pathlib import Path
 from typing import Optional, Tuple
 
 
@@ -7,41 +5,22 @@ class AuthService:
     """Authentication service for handling user login and session management."""
 
     def __init__(self):
-        self.users_file = Path("app/data/users.json")
-        self._ensure_users_file()
         self.current_user: Optional[dict] = None
-
-    def _ensure_users_file(self) -> None:
-        """Ensure the users data file exists."""
-        self.users_file.parent.mkdir(parents=True, exist_ok=True)
-        if not self.users_file.exists():
-            # Create default users
-            default_users = {
-                "admin@example.com": {
-                    # In production, use hashed passwords
-                    "password": "Admin123",
-                    "name": "Admin User",
-                    "role": "admin",
-                },
-                "bacon@example.com": {
-                    # In production, use hashed passwords
-                    "password": "Bacon123",
-                    "name": "Bacon 堯",
-                    "role": "user",
-                },
-            }
-            with open(self.users_file, "w", encoding="utf-8") as f:
-                json.dump(default_users, f, indent=4)
-
-    def _load_users(self) -> dict:
-        """Load users from the JSON file."""
-        with open(self.users_file, "r", encoding="utf-8") as f:
-            return json.load(f)
-
-    def _save_users(self, users: dict) -> None:
-        """Save users to the JSON file."""
-        with open(self.users_file, "w", encoding="utf-8") as f:
-            json.dump(users, f, indent=4)
+        # In-memory user storage
+        self._users = {
+            "admin@example.com": {
+                # In production, use hashed passwords
+                "password": "Admin123",
+                "name": "Admin User",
+                "role": "admin",
+            },
+            "bacon@example.com": {
+                # In production, use hashed passwords
+                "password": "Bacon123",
+                "name": "Bacon 堯",
+                "role": "user",
+            },
+        }
 
     def login(self, email: str, password: str) -> Tuple[bool, str]:
         """
@@ -54,17 +33,15 @@ class AuthService:
         Returns:
             Tuple of (success: bool, message: str)
         """
-        users = self._load_users()
-
-        if email not in users or users[email]["password"] != password:
+        if email not in self._users or self._users[email]["password"] != password:
             return False, "電子郵件帳號或密碼錯誤"
 
         self.current_user = {
             "email": email,
-            "name": users[email]["name"],
-            "role": users[email]["role"],
+            "name": self._users[email]["name"],
+            "role": self._users[email]["role"],
         }
-        return True, f"歡迎回來，{users[email]['name']}！"
+        return True, f"歡迎回來，{self._users[email]['name']}！"
 
     def logout(self) -> None:
         """Log out the current user."""
@@ -90,20 +67,39 @@ class AuthService:
         Returns:
             Tuple of (success: bool, message: str)
         """
-        users = self._load_users()
-
-        if email in users:
+        if email in self._users:
             return False, "此電子郵件已被註冊"
 
-        users[email] = {
+        self._users[email] = {
             # In production, use hashed passwords
             "password": password,
             "name": name,
             "role": "user",
         }
-
-        self._save_users(users)
         return True, "註冊成功！請登入。"
+
+    def change_password(
+        self, email: str, current_password: str, new_password: str
+    ) -> Tuple[bool, str]:
+        """
+        Change user's password.
+
+        Args:
+            email: User's email address
+            current_password: Current password
+            new_password: New password
+
+        Returns:
+            Tuple of (success: bool, message: str)
+        """
+        if email not in self._users:
+            return False, "找不到此用戶"
+
+        if self._users[email]["password"] != current_password:
+            return False, "目前密碼錯誤"
+
+        self._users[email]["password"] = new_password
+        return True, "密碼已更新"
 
 
 # Create a singleton instance
