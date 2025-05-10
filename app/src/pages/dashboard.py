@@ -4,6 +4,7 @@ from services.auth import auth_service
 
 from .customers import customers_page
 from .notifications import notifications_page
+from .profile import profile_page
 from .settings import settings_page
 
 
@@ -28,6 +29,8 @@ def dashboard_page(page: ft.Page) -> ft.Container:
             main_content.content = notifications_page()
         elif e.control.selected_index == 2:
             main_content.content = settings_page()
+        elif e.control.selected_index == 3:
+            main_content.content = profile_page()
         page.update()
 
     # Set up AppBar
@@ -57,36 +60,6 @@ def dashboard_page(page: ft.Page) -> ft.Container:
     )
     page.update()
 
-    # User info in rail
-    user_info_container = ft.Container(
-        content=ft.Column(
-            controls=[
-                ft.Icon(ft.icons.PERSON, size=40),
-                ft.Text(
-                    current_user["name"],
-                    size=16,
-                    weight=ft.FontWeight.BOLD,
-                ),
-                ft.Text(
-                    current_user["email"],
-                    size=14,
-                    color=ft.colors.GREY_700,
-                ),
-                ft.Text(
-                    f"角色：{current_user['role']}",
-                    size=14,
-                    color=ft.colors.GREY_700,
-                ),
-            ],
-            spacing=5,
-            alignment=ft.MainAxisAlignment.CENTER,
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        ),
-        padding=20,
-        border_radius=10,
-        bgcolor=ft.colors.BLUE_50,
-    )
-
     # Navigation rail
     rail = ft.NavigationRail(
         selected_index=0,
@@ -94,7 +67,6 @@ def dashboard_page(page: ft.Page) -> ft.Container:
         min_width=100,
         min_extended_width=200,
         group_alignment=-0.9,
-        leading=user_info_container,
         destinations=[
             ft.NavigationRailDestination(
                 icon=ft.icons.PEOPLE_OUTLINE,
@@ -110,6 +82,11 @@ def dashboard_page(page: ft.Page) -> ft.Container:
                 icon=ft.icons.SETTINGS_OUTLINED,
                 selected_icon=ft.icons.SETTINGS,
                 label="系統設定",
+            ),
+            ft.NavigationRailDestination(
+                icon=ft.icons.PERSON_OUTLINE,
+                selected_icon=ft.icons.PERSON,
+                label="個人資料",
             ),
         ],
         on_change=change_route,
