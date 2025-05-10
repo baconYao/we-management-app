@@ -1,4 +1,5 @@
 import flet as ft
+from constants import APP_NAME, STORE_NAME
 from services.auth import auth_service
 from utils.validation import validate_email, validate_password
 
@@ -70,7 +71,8 @@ def login_page(page: ft.Page) -> ft.Container:
     return ft.Container(
         content=ft.Column(
             controls=[
-                ft.Text("登入", size=30, weight=ft.FontWeight.BOLD),
+                ft.Text(APP_NAME, size=40, weight=ft.FontWeight.BOLD),
+                ft.Text(STORE_NAME, size=30, weight=ft.FontWeight.BOLD),
                 ft.Text("請登入以繼續", size=16, color=ft.colors.GREY_700),
                 ft.Container(height=20),  # Spacer
                 email,
@@ -89,7 +91,7 @@ def login_page(page: ft.Page) -> ft.Container:
             alignment=ft.MainAxisAlignment.CENTER,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         ),
-        padding=20,
+        padding=50,
         border_radius=10,
         border=ft.border.all(1, ft.colors.GREY_400),
         bgcolor=ft.colors.WHITE,

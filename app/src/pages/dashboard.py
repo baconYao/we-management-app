@@ -1,5 +1,5 @@
 import flet as ft
-from constants import APP_NAME
+from constants import APP_NAME, STORE_NAME
 from services.auth import auth_service
 
 from .customers import customers_page
@@ -36,7 +36,7 @@ def dashboard_page(page: ft.Page) -> ft.Container:
     # Set up AppBar
     page.appbar = ft.AppBar(
         title=ft.Text(
-            APP_NAME,
+            APP_NAME + " - " + STORE_NAME,
             size=24,
             weight=ft.FontWeight.BOLD,
             text_align="start",

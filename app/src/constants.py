@@ -1,7 +1,8 @@
 """Application-wide constants and configuration."""
 
 # Application Information
-APP_NAME = "共享竹南店-客戶管理系統"
+APP_NAME = "客戶管理系統"
+STORE_NAME = "竹南中正經銷處"
 APP_VERSION = "0.0.1"
 
 # Window Configuration

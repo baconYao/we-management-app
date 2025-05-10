@@ -1,6 +1,7 @@
 import flet as ft
 from constants import (
     APP_NAME,
+    STORE_NAME,
     THEME_MODE,
     WINDOW_HEIGHT,
     WINDOW_MIN_HEIGHT,
@@ -11,7 +12,7 @@ from routes import handle_route
 
 
 def main(page: ft.Page):
-    page.title = APP_NAME
+    page.title = APP_NAME + " - " + STORE_NAME
     # Set theme mode based on configuration
     is_dark_mode = THEME_MODE == "dark"
     page.theme_mode = ft.ThemeMode.DARK if is_dark_mode else ft.ThemeMode.LIGHT
