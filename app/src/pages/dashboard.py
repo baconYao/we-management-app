@@ -12,10 +12,11 @@ def dashboard_page(page: ft.Page) -> ft.Container:
     """Create and return the dashboard page component."""
     current_user = auth_service.get_current_user()
 
-    if not current_user:
-        return ft.Container(
-            content=ft.Text("請先登入", size=20), alignment=ft.alignment.center
-        )
+    # FIX: Always return to the login page if not logged in
+    # if not current_user:
+    #     return ft.Container(
+    #         content=ft.Text("請先登入", size=20), alignment=ft.alignment.center
+    #     )
 
     def logout_click(e):
         auth_service.logout()
@@ -95,7 +96,7 @@ def dashboard_page(page: ft.Page) -> ft.Container:
 
     # Main content container
     main_content = ft.Container(
-        content=customers_page(),  # Start with customers page
+        content=customers_page(page),  # Start with customers page
         expand=True,
     )
 
