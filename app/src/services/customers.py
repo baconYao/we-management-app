@@ -10,18 +10,24 @@ class CustomerService:
         self._customers = [
             {
                 "id": i,
-                "name": f"{random.choice(['王', '李', '張', '劉', '陳', '楊', '黃', '趙', '周', '吳'])}"
-                f"{random.choice(['小', '大', '志', '明', '俊', '文', '建', '家', '國', '世'])}"
-                f"{random.choice(['明', '華', '強', '偉', '傑', '芳', '玲', '美', '麗', '娟'])}",
+                "name": (
+                    f"{random.choice(['王', '李', '張', '劉', '陳', '楊', '黃'])}"
+                    f"{random.choice(['小', '大', '志', '明', '俊', '文', '建'])}"
+                    f"{random.choice(['明', '華', '強', '玲', '美', '麗', '娟'])}"
+                ),
                 "gender": random.choice(["男", "女"]),
                 "phone": f"09{random.randint(10000000, 99999999)}",
-                "address": f"{random.choice(['台北市', '新北市', '桃園市', '新竹市', '台中市'])}"
-                f"{random.choice(['中正區', '信義區', '大安區', '中山區', '板橋區'])}"
-                f"{random.choice(['中正路', '信義路', '中山路', '民生路', '和平路'])}"
-                f"{random.randint(1, 999)}號",
-                "member_id": f"M{random.randint(1000, 9999)}"
-                if random.random() > 0.5
-                else "",
+                "address": (
+                    f"{random.choice(['台北市', '新北市', '桃園市', '新竹市', '台中市'])}"
+                    f"{random.choice(['中正區', '信義區', '大安區', '中山區', '板橋區'])}"
+                    f"{random.choice(['中正路', '信義路', '中山路', '民生路', '和平路'])}"
+                    f"{random.randint(1, 999)}號"
+                ),
+                "member_id": (
+                    f"M{random.randint(1000, 9999)}"
+                    if random.random() > 0.5
+                    else ""
+                ),
                 "email": f"user{i}@example.com",
                 "line_id": f"line{i}",
             }
@@ -69,7 +75,9 @@ class CustomerService:
         """
         # Get filtered customers if search query is provided
         customers = (
-            self.search_customers(search_query) if search_query else self._customers
+            self.search_customers(search_query)
+            if search_query
+            else self._customers
         )
 
         # Calculate pagination

@@ -1,4 +1,5 @@
 import flet as ft
+
 from services.customers import customer_service
 from utils.validation import is_valid_email
 
@@ -6,7 +7,8 @@ from utils.validation import is_valid_email
 def add_customer_dialog(page: ft.Page, on_save: callable):
     """Open a dialog to add a new customer.
 
-    This function creates and displays a modal dialog with a form to add a new customer.
+    This function creates and displays a modal dialog with a form to add a new
+    customer.
     The form includes fields for:
     - Name (required)
     - Gender (dropdown: 男/女)
@@ -17,7 +19,8 @@ def add_customer_dialog(page: ft.Page, on_save: callable):
     - Line ID
 
     The dialog includes validation for required fields and email format.
-    On successful submission, the new customer is added to the service and the table is updated.
+    On successful submission, the new customer is added to the service and the
+    table is updated.
 
     Args:
         page: The Flet page object
@@ -51,7 +54,9 @@ def add_customer_dialog(page: ft.Page, on_save: callable):
             "phone": phone_field.value,
             "address": address_field.value,
             "member_id": member_id_field.value or "",
-            "email": email_field.value or "",  # Use empty string if no email provided
+            "email": (
+                email_field.value or ""
+            ),  # Use empty string if no email provided
             "line_id": line_id_field.value or "",
         }
 
@@ -253,7 +258,9 @@ def customers_page(page: ft.Page) -> ft.Container:
             controls=[
                 ft.Row(
                     controls=[
-                        ft.Text("客戶管理", size=20, weight=ft.FontWeight.BOLD),
+                        ft.Text(
+                            "客戶管理", size=20, weight=ft.FontWeight.BOLD
+                        ),
                         ft.Row(
                             controls=[
                                 ft.TextField(

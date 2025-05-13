@@ -1,4 +1,5 @@
 import flet as ft
+
 from constants import APP_NAME, STORE_NAME
 from services.auth import auth_service
 from utils.validation import validate_email, validate_password
@@ -49,7 +50,9 @@ def login_page(page: ft.Page) -> ft.Container:
             print("error", message)
             # Show error message
             snack_bar = ft.SnackBar(
-                content=ft.Text(message), bgcolor=ft.colors.RED_400, duration=3000
+                content=ft.Text(message),
+                bgcolor=ft.colors.RED_400,
+                duration=3000,
             )
             snack_bar.open = True
             page.overlay.append(snack_bar)

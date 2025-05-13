@@ -2,7 +2,7 @@ from typing import Optional, Tuple
 
 
 class AuthService:
-    """Authentication service for handling user login and session management."""
+    """Authentication service for handling user login and session management"""
 
     def __init__(self):
         self.current_user: Optional[dict] = None
@@ -33,7 +33,10 @@ class AuthService:
         Returns:
             Tuple of (success: bool, message: str)
         """
-        if email not in self._users or self._users[email]["password"] != password:
+        if (
+            email not in self._users
+            or self._users[email]["password"] != password
+        ):
             return False, "電子郵件帳號或密碼錯誤"
 
         self.current_user = {
@@ -55,7 +58,9 @@ class AuthService:
         """Get the current user's information."""
         return self.current_user
 
-    def register(self, email: str, password: str, name: str) -> Tuple[bool, str]:
+    def register(
+        self, email: str, password: str, name: str
+    ) -> Tuple[bool, str]:
         """
         Register a new user.
 
