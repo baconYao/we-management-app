@@ -19,7 +19,9 @@ class CustomerService:
                 f"{random.choice(['中正區', '信義區', '大安區', '中山區', '板橋區'])}"
                 f"{random.choice(['中正路', '信義路', '中山路', '民生路', '和平路'])}"
                 f"{random.randint(1, 999)}號",
-                "is_member": random.choice([True, False]),
+                "member_id": f"M{random.randint(1000, 9999)}"
+                if random.random() > 0.5
+                else "",
                 "email": f"user{i}@example.com",
                 "line_id": f"line{i}",
             }
