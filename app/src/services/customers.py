@@ -26,8 +26,33 @@ class CustomerService:
             for i in range(1, 34)  # Generate 33 records
         ]
 
+    def search_customers(self, query: str) -> List[Dict]:
+        """
+        Search customers by name, phone, email, or line_id.
+
+        Args:
+            query: Search query string
+
+        Returns:
+            List of matching customers
+        """
+        if not query:
+            return self._customers
+
+        query = query.lower()
+        return [
+            customer
+            for customer in self._customers
+            if (
+                query in customer["name"].lower()
+                or query in customer["phone"]
+                or query in customer["email"].lower()
+                or query in customer["line_id"].lower()
+            )
+        ]
+
     def get_paginated_customers(
-        self, page: int = 1, page_size: int = 15
+        self, page: int = 1, page_size: int = 25, search_query: str = None
     ) -> Tuple[List[Dict], int]:
         """
         Get paginated customers.
@@ -35,14 +60,22 @@ class CustomerService:
         Args:
             page: Page number (1-based)
             page_size: Number of records per page
+            search_query: Optional search query to filter customers
 
         Returns:
             Tuple of (customers for current page, total number of pages)
         """
+        # Get filtered customers if search query is provided
+        customers = (
+            self.search_customers(search_query) if search_query else self._customers
+        )
+
+        # Calculate pagination
         start_idx = (page - 1) * page_size
         end_idx = start_idx + page_size
-        total_pages = (len(self._customers) + page_size - 1) // page_size
-        return self._customers[start_idx:end_idx], total_pages
+        total_pages = (len(customers) + page_size - 1) // page_size
+
+        return customers[start_idx:end_idx], total_pages
 
     def get_all_customers(self) -> List[Dict]:
         """Get all customers."""

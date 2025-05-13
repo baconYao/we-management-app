@@ -7,11 +7,12 @@ def customers_page(page: ft.Page) -> ft.Container:
     # State for current page
     current_page = 1
     page_size = 10
+    search_query = ""
 
-    def update_table(page_num: int):
+    def update_table(page_num: int, query: str = None):
         # Get paginated data
         customers, total_pages = customer_service.get_paginated_customers(
-            page=page_num, page_size=page_size
+            page=page_num, page_size=page_size, search_query=query
         )
 
         # Update table rows
@@ -63,27 +64,27 @@ def customers_page(page: ft.Page) -> ft.Container:
         nonlocal current_page
         if current_page > 1:
             current_page -= 1
-            update_table(current_page)
+            update_table(current_page, search_query)
 
     def next_page(e):
         nonlocal current_page
-        customers, total_pages = customer_service.get_paginated_customers(
-            page=current_page, page_size=page_size
+        _, total_pages = customer_service.get_paginated_customers(
+            page=current_page, page_size=page_size, search_query=search_query
         )
         if current_page < total_pages:
             current_page += 1
-            update_table(current_page)
+            update_table(current_page, search_query)
 
     def on_page_input(e):
         nonlocal current_page
         try:
             new_page = int(e.control.value)
-            customers, total_pages = customer_service.get_paginated_customers(
-                page=1, page_size=page_size
+            _, total_pages = customer_service.get_paginated_customers(
+                page=1, page_size=page_size, search_query=search_query
             )
             if 1 <= new_page <= total_pages:
                 current_page = new_page
-                update_table(current_page)
+                update_table(current_page, search_query)
             else:
                 e.control.error_text = f"請輸入 1 到 {total_pages} 之間的數字"
                 page.update()
@@ -92,8 +93,10 @@ def customers_page(page: ft.Page) -> ft.Container:
             page.update()
 
     def on_search(e):
-        # TODO: Implement search functionality
-        pass
+        nonlocal current_page, search_query
+        search_query = e.control.value
+        current_page = 1  # Reset to first page when searching
+        update_table(current_page, search_query)
 
     # Create a data table
     data_table = ft.DataTable(
@@ -147,7 +150,7 @@ def customers_page(page: ft.Page) -> ft.Container:
                                     height=40,
                                     border_radius=8,
                                     prefix_icon=ft.icons.SEARCH,
-                                    on_submit=on_search,
+                                    on_change=on_search,
                                 ),
                                 ft.ElevatedButton(
                                     "新增客戶",
