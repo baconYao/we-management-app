@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Customers from './pages/Customers';
 import Notifications from './pages/Notifications';
+import CustomerDetail from './pages/CustomerDetail';
 import { authService } from './services/auth';
 
 const theme = createTheme({
@@ -53,6 +54,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Customers />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/customers/:uid"
+            element={
+              <ProtectedRoute>
+                <CustomerDetail />
               </ProtectedRoute>
             }
           />
