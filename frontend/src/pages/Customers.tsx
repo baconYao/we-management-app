@@ -33,196 +33,8 @@ import {
   LastPage as LastPageIcon,
 } from '@mui/icons-material';
 import Layout from '../components/Layout';
-
-interface Customer {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-}
-
-const initialCustomers: Customer[] = [
-  {
-    id: 1,
-    name: '張三',
-    email: 'zhang.san@example.com',
-    phone: '0912-345-678',
-  },
-  {
-    id: 2,
-    name: '李四',
-    email: 'li.si@example.com',
-    phone: '0923-456-789',
-  },
-  {
-    id: 3,
-    name: '王五',
-    email: 'wang.wu@example.com',
-    phone: '0934-567-890',
-  },
-  {
-    id: 4,
-    name: '陳六',
-    email: 'chen.liu@example.com',
-    phone: '0945-678-901',
-  },
-  {
-    id: 5,
-    name: '林七',
-    email: 'lin.qi@example.com',
-    phone: '0956-789-012',
-  },
-  {
-    id: 6,
-    name: '黃八',
-    email: 'huang.ba@example.com',
-    phone: '0967-890-123',
-  },
-  {
-    id: 7,
-    name: '趙九',
-    email: 'zhao.jiu@example.com',
-    phone: '0978-901-234',
-  },
-  {
-    id: 8,
-    name: '吳十',
-    email: 'wu.shi@example.com',
-    phone: '0989-012-345',
-  },
-  {
-    id: 9,
-    name: '周十一',
-    email: 'zhou.shiyi@example.com',
-    phone: '0901-234-567',
-  },
-  {
-    id: 10,
-    name: '鄭十二',
-    email: 'zheng.shier@example.com',
-    phone: '0912-345-678',
-  },
-  {
-    id: 11,
-    name: '孫十三',
-    email: 'sun.shisan@example.com',
-    phone: '0923-456-789',
-  },
-  {
-    id: 12,
-    name: '楊十四',
-    email: 'yang.shisi@example.com',
-    phone: '0934-567-890',
-  },
-  {
-    id: 13,
-    name: '朱十五',
-    email: 'zhu.shiwu@example.com',
-    phone: '0945-678-901',
-  },
-  {
-    id: 14,
-    name: '胡十六',
-    email: 'hu.shiliu@example.com',
-    phone: '0956-789-012',
-  },
-  {
-    id: 15,
-    name: '高十七',
-    email: 'gao.shiqi@example.com',
-    phone: '0967-890-123',
-  },
-  {
-    id: 16,
-    name: '林十八',
-    email: 'lin.shiba@example.com',
-    phone: '0978-901-234',
-  },
-  {
-    id: 17,
-    name: '何十九',
-    email: 'he.shijiu@example.com',
-    phone: '0989-012-345',
-  },
-  {
-    id: 18,
-    name: '郭二十',
-    email: 'guo.ershi@example.com',
-    phone: '0901-234-567',
-  },
-  {
-    id: 19,
-    name: '馬二一',
-    email: 'ma.eryi@example.com',
-    phone: '0912-345-678',
-  },
-  {
-    id: 20,
-    name: '羅二二',
-    email: 'luo.erer@example.com',
-    phone: '0923-456-789',
-  },
-  {
-    id: 21,
-    name: '梁二三',
-    email: 'liang.ersan@example.com',
-    phone: '0934-567-890',
-  },
-  {
-    id: 22,
-    name: '宋二四',
-    email: 'song.ersi@example.com',
-    phone: '0945-678-901',
-  },
-  {
-    id: 23,
-    name: '鄭二五',
-    email: 'zheng.erwu@example.com',
-    phone: '0956-789-012',
-  },
-  {
-    id: 24,
-    name: '謝二六',
-    email: 'xie.erliu@example.com',
-    phone: '0967-890-123',
-  },
-  {
-    id: 25,
-    name: '韓二七',
-    email: 'han.erqi@example.com',
-    phone: '0978-901-234',
-  },
-  {
-    id: 26,
-    name: '唐二八',
-    email: 'tang.erba@example.com',
-    phone: '0989-012-345',
-  },
-  {
-    id: 27,
-    name: '馮二九',
-    email: 'feng.erjiu@example.com',
-    phone: '0901-234-567',
-  },
-  {
-    id: 28,
-    name: '于三十',
-    email: 'yu.sanshi@example.com',
-    phone: '0912-345-678',
-  },
-  {
-    id: 29,
-    name: '董三一',
-    email: 'dong.sanyi@example.com',
-    phone: '0923-456-789',
-  },
-  {
-    id: 30,
-    name: '蕭三二',
-    email: 'xiao.saner@example.com',
-    phone: '0934-567-890',
-  },
-];
+import type { Customer } from '../mock/customers';
+import { initialCustomers } from '../mock/customers';
 
 export default function Customers() {
   const [customers, setCustomers] = useState<Customer[]>(initialCustomers);
@@ -233,7 +45,6 @@ export default function Customers() {
   const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
   });
 
@@ -251,14 +62,12 @@ export default function Customers() {
       setSelectedCustomer(customer);
       setFormData({
         name: customer.name,
-        email: customer.email,
         phone: customer.phone,
       });
     } else {
       setSelectedCustomer(null);
       setFormData({
         name: '',
-        email: '',
         phone: '',
       });
     }
@@ -282,6 +91,7 @@ export default function Customers() {
       // 添加新客戶
       const newCustomer = {
         id: Math.max(...customers.map(c => c.id)) + 1,
+        memberId: null, // 新客戶預設沒有會員編號
         ...formData,
       };
       setCustomers([...customers, newCustomer]);
@@ -296,7 +106,7 @@ export default function Customers() {
   // 過濾和搜尋客戶
   const filteredCustomers = customers.filter(customer => 
     customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (customer.memberId?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
     customer.phone.includes(searchTerm)
   );
 
@@ -397,8 +207,8 @@ export default function Customers() {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>會員編號</TableCell>
               <TableCell>姓名</TableCell>
-              <TableCell>電子郵件</TableCell>
               <TableCell>電話</TableCell>
               <TableCell>操作</TableCell>
             </TableRow>
@@ -408,8 +218,8 @@ export default function Customers() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((customer) => (
                 <TableRow key={customer.id}>
+                  <TableCell>{customer.memberId || '-'}</TableCell>
                   <TableCell>{customer.name}</TableCell>
-                  <TableCell>{customer.email}</TableCell>
                   <TableCell>{customer.phone}</TableCell>
                   <TableCell>
                     <IconButton
@@ -444,13 +254,6 @@ export default function Customers() {
               label="姓名"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              margin="normal"
-            />
-            <TextField
-              fullWidth
-              label="電子郵件"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               margin="normal"
             />
             <TextField
