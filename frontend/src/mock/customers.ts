@@ -1,3 +1,17 @@
+export interface MaintenanceRecord {
+  date: string;
+  items: string[];
+  notes?: string;
+}
+
+export interface WaterPurifier {
+  model: string;
+  serialNumber: string;
+  installationDate: string;
+  location: string;
+  maintenanceRecords?: MaintenanceRecord[];
+}
+
 export interface Customer {
   id: number;
   uid: string;
@@ -15,6 +29,7 @@ export interface Customer {
     whatsapp?: string;
   };
   joinDate?: string; // YYYY-MM-DD
+  waterPurifiers?: WaterPurifier[];
 }
 
 export const initialCustomers: Customer[] = [
@@ -33,6 +48,44 @@ export const initialCustomers: Customer[] = [
       facebook: "zhang.san",
     },
     joinDate: "2023-01-15",
+    waterPurifiers: [
+      {
+        model: "廚下型",
+        serialNumber: "WP2024001",
+        installationDate: "2024-01-15",
+        location: "廚房",
+        maintenanceRecords: [
+          {
+            date: "2024-03-15",
+            items: ["前置濾心", "RO膜", "後置濾心"],
+            notes: "定期更換",
+          },
+          {
+            date: "2024-02-15",
+            items: ["前置濾心", "RO膜"],
+            notes: "定期更換",
+          },
+          {
+            date: "2024-01-15",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+      {
+        model: "桌上型",
+        serialNumber: "WP2024002",
+        installationDate: "2024-02-01",
+        location: "客廳",
+        maintenanceRecords: [
+          {
+            date: "2024-02-01",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+    ],
   },
   {
     id: 2,
@@ -47,6 +100,31 @@ export const initialCustomers: Customer[] = [
     socialMedia: {
       wechat: "lisi456",
     },
+    waterPurifiers: [
+      {
+        model: "廚下型",
+        serialNumber: "WP2024003",
+        installationDate: "2024-01-20",
+        location: "廚房",
+        maintenanceRecords: [
+          {
+            date: "2024-03-10",
+            items: ["前置濾心", "RO膜", "後置濾心"],
+            notes: "定期更換",
+          },
+          {
+            date: "2024-02-10",
+            items: ["前置濾心", "後置濾心"],
+            notes: "水質異常更換",
+          },
+          {
+            date: "2024-01-20",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+    ],
   },
   {
     id: 3,
@@ -62,6 +140,34 @@ export const initialCustomers: Customer[] = [
       whatsapp: "+886934567890",
     },
     joinDate: "2023-06-20",
+    waterPurifiers: [
+      {
+        model: "廚下型",
+        serialNumber: "WP2024004",
+        installationDate: "2024-02-15",
+        location: "廚房",
+        maintenanceRecords: [
+          {
+            date: "2024-02-15",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+      {
+        model: "直立型",
+        serialNumber: "WP2024005",
+        installationDate: "2024-02-20",
+        location: "書房",
+        maintenanceRecords: [
+          {
+            date: "2024-02-20",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+    ],
   },
   {
     id: 4,
