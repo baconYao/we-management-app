@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Paper,
@@ -9,14 +10,12 @@ import {
   TableHead,
   TableRow,
   IconButton,
-  Typography,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   TextField,
-  Grid,
   InputAdornment,
   Select,
   MenuItem,
@@ -24,19 +23,19 @@ import {
   InputLabel,
 } from '@mui/material';
 import { 
-  Edit as EditIcon, 
-  Delete as DeleteIcon,
   Search as SearchIcon,
   NavigateBefore as NavigateBeforeIcon,
   NavigateNext as NavigateNextIcon,
   FirstPage as FirstPageIcon,
   LastPage as LastPageIcon,
+  Visibility as VisibilityIcon,
 } from '@mui/icons-material';
 import Layout from '../components/Layout';
 import type { Customer } from '../mock/customers';
 import { initialCustomers } from '../mock/customers';
 
 export default function Customers() {
+  const navigate = useNavigate();
   const [customers, setCustomers] = useState<Customer[]>(initialCustomers);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -47,15 +46,6 @@ export default function Customers() {
     name: '',
     phone: '',
   });
-
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const handleOpen = (customer?: Customer) => {
     if (customer) {
@@ -89,18 +79,23 @@ export default function Customers() {
       ));
     } else {
       // 添加新客戶
-      const newCustomer = {
+      const newCustomer: Customer = {
         id: Math.max(...customers.map(c => c.id)) + 1,
-        memberId: null, // 新客戶預設沒有會員編號
-        ...formData,
+        uid: `CUS${new Date().toISOString().slice(0,10).replace(/-/g,'')}${String(Math.max(...customers.map(c => c.id)) + 1).padStart(3, '0')}`,
+        memberId: null,
+        name: formData.name,
+        gender: 'other', // 預設值
+        birthDate: new Date().toISOString().slice(0,10), // 預設為今天
+        address: '', // 預設空字串
+        phone: formData.phone,
       };
       setCustomers([...customers, newCustomer]);
     }
     handleClose();
   };
 
-  const handleDelete = (id: number) => {
-    setCustomers(customers.filter(customer => customer.id !== id));
+  const handleViewDetails = (uid: string) => {
+    navigate(`/customers/${uid}`);
   };
 
   // 過濾和搜尋客戶
@@ -210,7 +205,7 @@ export default function Customers() {
               <TableCell>會員編號</TableCell>
               <TableCell>姓名</TableCell>
               <TableCell>電話</TableCell>
-              <TableCell>操作</TableCell>
+              <TableCell>詳細資訊</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -224,17 +219,11 @@ export default function Customers() {
                   <TableCell>
                     <IconButton
                       size="small"
-                      onClick={() => handleOpen(customer)}
+                      onClick={() => handleViewDetails(customer.uid)}
                       color="primary"
+                      title="查看詳細資訊"
                     >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      size="small"
-                      onClick={() => handleDelete(customer.id)}
-                      color="error"
-                    >
-                      <DeleteIcon />
+                      <VisibilityIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>
