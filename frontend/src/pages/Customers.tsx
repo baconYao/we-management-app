@@ -11,16 +11,12 @@ import {
   TableRow,
   IconButton,
   Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
   TextField,
   InputAdornment,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import { 
   Search as SearchIcon,
@@ -31,6 +27,7 @@ import {
   Visibility as VisibilityIcon,
 } from '@mui/icons-material';
 import Layout from '../components/Layout';
+import CustomerAddForm from '../components/CustomerAddForm';
 import type { Customer } from '../mock/customers';
 import { initialCustomers } from '../mock/customers';
 
@@ -42,25 +39,9 @@ export default function Customers() {
   const [open, setOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-  });
 
   const handleOpen = (customer?: Customer) => {
-    if (customer) {
-      setSelectedCustomer(customer);
-      setFormData({
-        name: customer.name,
-        phone: customer.phone,
-      });
-    } else {
-      setSelectedCustomer(null);
-      setFormData({
-        name: '',
-        phone: '',
-      });
-    }
+    setSelectedCustomer(customer || null);
     setOpen(true);
   };
 
@@ -69,7 +50,7 @@ export default function Customers() {
     setSelectedCustomer(null);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (formData: Omit<Customer, 'id' | 'uid'>) => {
     if (selectedCustomer) {
       // 更新現有客戶
       setCustomers(customers.map(customer =>
@@ -82,12 +63,7 @@ export default function Customers() {
       const newCustomer: Customer = {
         id: Math.max(...customers.map(c => c.id)) + 1,
         uid: `CUS${new Date().toISOString().slice(0,10).replace(/-/g,'')}${String(Math.max(...customers.map(c => c.id)) + 1).padStart(3, '0')}`,
-        memberId: null,
-        name: formData.name,
-        gender: 'other', // 預設值
-        birthDate: new Date().toISOString().slice(0,10), // 預設為今天
-        address: '', // 預設空字串
-        phone: formData.phone,
+        ...formData,
       };
       setCustomers([...customers, newCustomer]);
     }
@@ -205,6 +181,8 @@ export default function Customers() {
               <TableCell>會員編號</TableCell>
               <TableCell>姓名</TableCell>
               <TableCell>電話</TableCell>
+              <TableCell>地址</TableCell>
+              <TableCell>加入時間</TableCell>
               <TableCell>詳細資訊</TableCell>
             </TableRow>
           </TableHead>
@@ -212,16 +190,17 @@ export default function Customers() {
             {filteredCustomers
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((customer) => (
-                <TableRow key={customer.id}>
+                <TableRow key={customer.uid}>
                   <TableCell>{customer.memberId || '-'}</TableCell>
                   <TableCell>{customer.name}</TableCell>
                   <TableCell>{customer.phone}</TableCell>
+                  <TableCell>{customer.address}</TableCell>
+                  <TableCell>{customer.joinDate || '-'}</TableCell>
                   <TableCell>
                     <IconButton
                       size="small"
                       onClick={() => handleViewDetails(customer.uid)}
-                      color="primary"
-                      title="查看詳細資訊"
+                      title="查看詳情"
                     >
                       <VisibilityIcon />
                     </IconButton>
@@ -232,35 +211,12 @@ export default function Customers() {
         </Table>
       </TableContainer>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>
-          {selectedCustomer ? '編輯客戶' : '新增客戶'}
-        </DialogTitle>
-        <DialogContent>
-          <Box sx={{ pt: 2 }}>
-            <TextField
-              fullWidth
-              label="姓名"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              margin="normal"
-            />
-            <TextField
-              fullWidth
-              label="電話"
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              margin="normal"
-            />
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>取消</Button>
-          <Button onClick={handleSubmit} variant="contained" color="primary">
-            確定
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <CustomerAddForm
+        open={open}
+        onClose={handleClose}
+        onSubmit={handleSubmit}
+        initialData={selectedCustomer || undefined}
+      />
     </Layout>
   );
 } 
