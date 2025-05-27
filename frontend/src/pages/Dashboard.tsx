@@ -169,7 +169,7 @@ export default function Dashboard() {
     <Layout title="儀表板">
       <Box sx={{ flexGrow: 1, p: 3 }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid component="div" item xs={12} sm={6} md={3}>
             <StatCard
               title="總收入"
               value="$24,500"
@@ -179,7 +179,7 @@ export default function Dashboard() {
               color="#1976d2"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid component="div" item xs={12} sm={6} md={3}>
             <StatCard
               title="訂單數"
               value="1,250"
@@ -189,7 +189,7 @@ export default function Dashboard() {
               color="#2e7d32"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid component="div" item xs={12} sm={6} md={3}>
             <StatCard
               title="客戶數"
               value="850"
@@ -199,7 +199,7 @@ export default function Dashboard() {
               color="#ed6c02"
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid component="div" item xs={12} sm={6} md={3}>
             <StatCard
               title="轉換率"
               value="2.4%"
@@ -210,7 +210,7 @@ export default function Dashboard() {
             />
           </Grid>
 
-          <Grid item xs={12} md={8}>
+          <Grid component="div" item xs={12} md={8}>
             <Paper sx={{ p: 3, height: '100%' }}>
               <Typography variant="h6" gutterBottom>
                 銷售趨勢
@@ -236,7 +236,7 @@ export default function Dashboard() {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid component="div" item xs={12} md={4}>
             <Paper sx={{ p: 3, height: '100%' }}>
               <Typography variant="h6" gutterBottom>
                 客戶分布
@@ -265,7 +265,7 @@ export default function Dashboard() {
             </Paper>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid component="div" item xs={12}>
             <Paper sx={{ p: 3 }}>
               <Typography variant="h6" gutterBottom>
                 收入分析
