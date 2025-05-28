@@ -6,7 +6,7 @@ This is the backend service for the WE Management App, built with Go, Gin, and P
 
 - Docker
 - Docker Compose
-- Go 1.24 or later (for local development)
+- Go 1.23.9 or later (for local development)
 
 ## Project Structure
 
@@ -23,6 +23,7 @@ backend/
 │   └── middleware/           # Middleware
 ├── pkg/                      # Reusable packages
 ├── api/                      # API routes
+├── docs/                     # Swagger documentation
 ├── migrations/               # Database migrations
 ├── config/                   # Configuration files
 └── Dockerfile               # Production Dockerfile
@@ -53,6 +54,7 @@ docker-compose -f docker-compose.dev.yml up --build
 2. The application will be available at:
 
 - API: http://localhost:8080
+- Swagger UI: http://localhost:8080/swagger/index.html
 - PostgreSQL: localhost:5432
 
 ### Local Development
@@ -68,6 +70,24 @@ go mod download
 ```bash
 go run cmd/main.go
 ```
+
+## API Documentation
+
+The API documentation is available through Swagger UI. After starting the application, you can access it at:
+
+```
+http://localhost:8080/swagger/index.html
+```
+
+### Generating Swagger Documentation
+
+To update the Swagger documentation after making changes to the API:
+
+```bash
+swag init -g cmd/main.go
+```
+
+This will update the documentation in the `docs` directory.
 
 ## Production
 

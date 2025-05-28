@@ -1,9 +1,12 @@
-FROM golang:1.24-alpine
+FROM golang:1.23.9-alpine
 
 WORKDIR /app
 
 # Install git and build dependencies
 RUN apk add --no-cache git
+
+# Set Go toolchain version
+ENV GOTOOLCHAIN=local
 
 # Install air for hot reload
 RUN go install github.com/air-verse/air@latest
