@@ -1,0 +1,24 @@
+FROM golang:1.24-alpine
+
+WORKDIR /app
+
+# Install git and build dependencies
+RUN apk add --no-cache git
+
+# Install air for hot reload
+RUN go install github.com/air-verse/air@latest
+
+# Copy go mod and sum files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Expose port
+EXPOSE 8080
+
+# Run air for hot reload
+CMD ["air", "-c", ".air.toml"] 
