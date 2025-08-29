@@ -178,7 +178,7 @@ export default function Customers() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>會員編號</TableCell>
+              <TableCell>共享會員編號</TableCell>
               <TableCell>姓名</TableCell>
               <TableCell>電話</TableCell>
               <TableCell>地址</TableCell>

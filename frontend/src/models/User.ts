@@ -12,9 +12,7 @@ export interface UserInterface {
   email?: string;
   socialMedia: {
     line?: string;
-    facebook?: string;
     wechat?: string;
-    whatsapp?: string;
   };
   memberJoinDate?: string; // YYYY-MM-DD
   role: "admin" | "user" | "local-admin";
