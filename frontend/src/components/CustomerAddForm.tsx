@@ -38,9 +38,7 @@ export default function CustomerAddForm({ open, onClose, onSubmit, initialData }
     address: '',
     socialMedia: {
       line: '',
-      facebook: '',
       wechat: '',
-      whatsapp: '',
     },
     joinDate: null as Date | null,
   });
@@ -135,9 +133,7 @@ export default function CustomerAddForm({ open, onClose, onSubmit, initialData }
       address: formData.address,
       socialMedia: {
         line: formData.socialMedia.line || undefined,
-        facebook: formData.socialMedia.facebook || undefined,
         wechat: formData.socialMedia.wechat || undefined,
-        whatsapp: formData.socialMedia.whatsapp || undefined,
       },
       joinDate: formData.joinDate?.toISOString().slice(0, 10),
     });
@@ -280,7 +276,19 @@ export default function CustomerAddForm({ open, onClose, onSubmit, initialData }
               />
             </Box>
           </Box>
-
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="會員加入時間，非共享會員可以不填寫"
+              value={formData.joinDate}
+              onChange={handleDateChange('joinDate')}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  helperText: '選填',
+                },
+              }}
+            />
+          </LocalizationProvider>
           <Typography variant="h6" sx={{ mt: 2 }}>
             通訊軟體
           </Typography>
@@ -296,42 +304,12 @@ export default function CustomerAddForm({ open, onClose, onSubmit, initialData }
             <Box sx={{ flex: '1 1 300px', minWidth: 0 }}>
               <TextField
                 fullWidth
-                label="Facebook"
-                value={formData.socialMedia.facebook || ''}
-                onChange={handleSocialMediaChange('facebook')}
-              />
-            </Box>
-            <Box sx={{ flex: '1 1 300px', minWidth: 0 }}>
-              <TextField
-                fullWidth
                 label="WeChat"
                 value={formData.socialMedia.wechat || ''}
                 onChange={handleSocialMediaChange('wechat')}
               />
             </Box>
-            <Box sx={{ flex: '1 1 300px', minWidth: 0 }}>
-              <TextField
-                fullWidth
-                label="WhatsApp"
-                value={formData.socialMedia.whatsapp || ''}
-                onChange={handleSocialMediaChange('whatsapp')}
-              />
-            </Box>
           </Box>
-
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="加入時間"
-              value={formData.joinDate}
-              onChange={handleDateChange('joinDate')}
-              slotProps={{
-                textField: {
-                  fullWidth: true,
-                  helperText: '選填',
-                },
-              }}
-            />
-          </LocalizationProvider>
         </Stack>
       </DialogContent>
       <DialogActions>

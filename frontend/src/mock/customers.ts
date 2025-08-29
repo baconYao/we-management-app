@@ -8,6 +8,7 @@ export interface WaterPurifier {
   model: string;
   serialNumber: string;
   installationDate: string;
+  installationPerson: string;
   location: string;
   maintenanceRecords?: MaintenanceRecord[];
 }
@@ -24,9 +25,7 @@ export interface Customer {
   email?: string;
   socialMedia?: {
     line?: string;
-    facebook?: string;
     wechat?: string;
-    whatsapp?: string;
   };
   joinDate?: string; // YYYY-MM-DD
   waterPurifiers?: WaterPurifier[];
@@ -45,7 +44,6 @@ export const initialCustomers: Customer[] = [
     email: "zhang.san@example.com",
     socialMedia: {
       line: "zhangsan123",
-      facebook: "zhang.san",
     },
     joinDate: "2023-01-15",
     waterPurifiers: [
@@ -53,6 +51,7 @@ export const initialCustomers: Customer[] = [
         model: "廚下型",
         serialNumber: "WP2024001",
         installationDate: "2024-01-15",
+        installationPerson: "張奕清",
         location: "廚房",
         maintenanceRecords: [
           {
@@ -76,6 +75,7 @@ export const initialCustomers: Customer[] = [
         model: "桌上型",
         serialNumber: "WP2024002",
         installationDate: "2024-02-01",
+        installationPerson: "張奕清",
         location: "客廳",
         maintenanceRecords: [
           {
@@ -105,6 +105,7 @@ export const initialCustomers: Customer[] = [
         model: "廚下型",
         serialNumber: "WP2024003",
         installationDate: "2024-01-20",
+        installationPerson: "張奕清",
         location: "廚房",
         maintenanceRecords: [
           {
@@ -137,7 +138,6 @@ export const initialCustomers: Customer[] = [
     phone: "0934-567-890",
     socialMedia: {
       line: "wangwu789",
-      whatsapp: "+886934567890",
     },
     joinDate: "2023-06-20",
     waterPurifiers: [
@@ -145,6 +145,7 @@ export const initialCustomers: Customer[] = [
         model: "廚下型",
         serialNumber: "WP2024004",
         installationDate: "2024-02-15",
+        installationPerson: "張奕清",
         location: "廚房",
         maintenanceRecords: [
           {
@@ -158,6 +159,7 @@ export const initialCustomers: Customer[] = [
         model: "直立型",
         serialNumber: "WP2024005",
         installationDate: "2024-02-20",
+        installationPerson: "張奕清",
         location: "書房",
         maintenanceRecords: [
           {
@@ -190,7 +192,6 @@ export const initialCustomers: Customer[] = [
     address: "台北市內湖區瑞光路188號",
     phone: "0956-789-012",
     socialMedia: {
-      facebook: "lin.qi",
       wechat: "linqi123",
     },
     joinDate: "2023-09-05",
@@ -207,7 +208,6 @@ export const initialCustomers: Customer[] = [
     email: "huang.ba@example.com",
     socialMedia: {
       line: "huangba456",
-      whatsapp: "+886967890123",
     },
   },
   {
@@ -220,7 +220,6 @@ export const initialCustomers: Customer[] = [
     address: "台北市文山區木柵路三段77號",
     phone: "0978-901-234",
     socialMedia: {
-      facebook: "zhao.jiu",
       wechat: "zhaojiu789",
     },
     joinDate: "2023-03-10",
@@ -247,7 +246,6 @@ export const initialCustomers: Customer[] = [
     phone: "0901-234-567",
     socialMedia: {
       line: "zhoushiyi123",
-      whatsapp: "+886901234567",
     },
     joinDate: "2023-11-15",
   },
@@ -262,7 +260,6 @@ export const initialCustomers: Customer[] = [
     phone: "0912-345-678",
     email: "zheng.shier@example.com",
     socialMedia: {
-      facebook: "zheng.shier",
       wechat: "zhengshier456",
     },
   },
