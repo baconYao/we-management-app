@@ -8,6 +8,7 @@ export interface WaterPurifier {
   model: string;
   serialNumber: string;
   installationDate: string;
+  installationPerson: string;
   location: string;
   maintenanceRecords?: MaintenanceRecord[];
 }
@@ -50,6 +51,7 @@ export const initialCustomers: Customer[] = [
         model: "廚下型",
         serialNumber: "WP2024001",
         installationDate: "2024-01-15",
+        installationPerson: "張奕清",
         location: "廚房",
         maintenanceRecords: [
           {
@@ -73,6 +75,7 @@ export const initialCustomers: Customer[] = [
         model: "桌上型",
         serialNumber: "WP2024002",
         installationDate: "2024-02-01",
+        installationPerson: "張奕清",
         location: "客廳",
         maintenanceRecords: [
           {
@@ -102,6 +105,7 @@ export const initialCustomers: Customer[] = [
         model: "廚下型",
         serialNumber: "WP2024003",
         installationDate: "2024-01-20",
+        installationPerson: "張奕清",
         location: "廚房",
         maintenanceRecords: [
           {
@@ -141,6 +145,7 @@ export const initialCustomers: Customer[] = [
         model: "廚下型",
         serialNumber: "WP2024004",
         installationDate: "2024-02-15",
+        installationPerson: "張奕清",
         location: "廚房",
         maintenanceRecords: [
           {
@@ -154,6 +159,7 @@ export const initialCustomers: Customer[] = [
         model: "直立型",
         serialNumber: "WP2024005",
         installationDate: "2024-02-20",
+        installationPerson: "張奕清",
         location: "書房",
         maintenanceRecords: [
           {

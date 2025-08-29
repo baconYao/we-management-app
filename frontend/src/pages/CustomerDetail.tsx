@@ -24,6 +24,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import Layout from '../components/Layout';
+import PurifierAddForm from '../components/PurifierAddForm';
 import type { Customer, WaterPurifier, MaintenanceRecord } from '../mock/customers';
 import { initialCustomers } from '../mock/customers';
 
@@ -32,6 +33,7 @@ export default function CustomerDetail() {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [selectedPurifier, setSelectedPurifier] = useState<WaterPurifier | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAddPurifierDialogOpen, setIsAddPurifierDialogOpen] = useState(false);
 
   useEffect(() => {
     // 在實際應用中，這裡會是 API 調用
@@ -47,6 +49,21 @@ export default function CustomerDetail() {
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
     setSelectedPurifier(null);
+  };
+
+  const handleOpenAddPurifier = () => {
+    setIsAddPurifierDialogOpen(true);
+  };
+
+  const handleCloseAddPurifier = () => {
+    setIsAddPurifierDialogOpen(false);
+  };
+
+  const handleAddPurifier = (purifier: Omit<WaterPurifier, 'maintenanceRecords'>) => {
+    // 這裡會實作新增淨水器的邏輯
+    console.log('新增淨水器:', purifier);
+    // 目前只是關閉對話框
+    handleCloseAddPurifier();
   };
 
   if (!customer) {
@@ -175,9 +192,19 @@ export default function CustomerDetail() {
 
           {/* 淨水器資訊區塊 */}
           <Paper sx={{ p: 4 }}>
-            <Typography variant="h4" gutterBottom sx={{ mb: 3, fontWeight: 'bold' }}>
-              淨水器資訊
-            </Typography>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+                淨水器資訊
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleOpenAddPurifier}
+                sx={{ minWidth: '120px' }}
+              >
+                新增淨水器
+              </Button>
+            </Box>
             <Divider sx={{ mb: 3 }} />
             <TableContainer>
               <Table>
@@ -186,6 +213,7 @@ export default function CustomerDetail() {
                     <TableCell sx={{ fontWeight: 'bold' }}>水機號碼</TableCell>
                     <TableCell sx={{ fontWeight: 'bold' }}>型號</TableCell>
                     <TableCell sx={{ fontWeight: 'bold' }}>裝機時間</TableCell>
+                    <TableCell sx={{ fontWeight: 'bold' }}>裝機人員</TableCell>
                     <TableCell sx={{ fontWeight: 'bold' }}>擺放位置</TableCell>
                     <TableCell sx={{ fontWeight: 'bold' }}>耗材更換紀錄</TableCell>
                   </TableRow>
@@ -197,6 +225,7 @@ export default function CustomerDetail() {
                         <TableCell>{purifier.serialNumber}</TableCell>
                         <TableCell>{purifier.model}</TableCell>
                         <TableCell>{purifier.installationDate}</TableCell>
+                        <TableCell>{purifier.installationPerson}</TableCell>
                         <TableCell>{purifier.location}</TableCell>
                         <TableCell>
                           <Button
@@ -211,7 +240,7 @@ export default function CustomerDetail() {
                     ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={5} align="center">
+                      <TableCell colSpan={6} align="center">
                         <Typography variant="body1" color="text.secondary">
                           尚無淨水器資訊
                         </Typography>
@@ -267,6 +296,13 @@ export default function CustomerDetail() {
             <Button onClick={handleCloseDialog}>關閉</Button>
           </DialogActions>
         </Dialog>
+
+        {/* 新增淨水器對話框 */}
+        <PurifierAddForm
+          open={isAddPurifierDialogOpen}
+          onClose={handleCloseAddPurifier}
+          onSubmit={handleAddPurifier}
+        />
       </Box>
     </Layout>
   );
