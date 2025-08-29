@@ -29,6 +29,7 @@ import {
   AttachMoney as MoneyIcon,
   ShoppingCart as CartIcon,
   Person as PersonIcon,
+  Inventory as InventoryIcon,
 } from '@mui/icons-material';
 import { authService } from '../services/auth';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
@@ -148,6 +149,14 @@ export default function Dashboard() {
               <NotificationsIcon />
             </ListItemIcon>
             <ListItemText primary="事件通知" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => handleNavigation('/inventory')}>
+            <ListItemIcon>
+              <InventoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="庫存管理" />
           </ListItemButton>
         </ListItem>
       </List>

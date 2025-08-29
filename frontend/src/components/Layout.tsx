@@ -20,6 +20,7 @@ import {
   Notifications as NotificationsIcon,
   Logout as LogoutIcon,
   Dashboard as DashboardIcon,
+  Inventory as InventoryIcon,
 } from '@mui/icons-material';
 import { authService } from '../services/auth';
 
@@ -90,6 +91,14 @@ export default function Layout({ children, title }: LayoutProps) {
               <NotificationsIcon />
             </ListItemIcon>
             <ListItemText primary="事件通知" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => handleNavigation('/inventory')}>
+            <ListItemIcon>
+              <InventoryIcon />
+            </ListItemIcon>
+            <ListItemText primary="庫存管理" />
           </ListItemButton>
         </ListItem>
       </List>
