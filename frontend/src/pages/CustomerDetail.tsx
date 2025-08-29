@@ -22,12 +22,7 @@ import {
   List,
   ListItem,
   ListItemText,
-  ListItemIcon,
 } from '@mui/material';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import ChatIcon from '@mui/icons-material/Chat';
-import MessageIcon from '@mui/icons-material/Message';
 import Layout from '../components/Layout';
 import type { Customer, WaterPurifier, MaintenanceRecord } from '../mock/customers';
 import { initialCustomers } from '../mock/customers';
@@ -161,19 +156,9 @@ export default function CustomerDetail() {
                             <ListItemText primary={`Line: ${customer.socialMedia.line}`} />
                           </ListItem>
                         )}
-                        {customer.socialMedia.facebook && (
-                          <ListItem>
-                            <ListItemText primary={`Facebook: ${customer.socialMedia.facebook}`} />
-                          </ListItem>
-                        )}
                         {customer.socialMedia.wechat && (
                           <ListItem>
                             <ListItemText primary={`WeChat: ${customer.socialMedia.wechat}`} />
-                          </ListItem>
-                        )}
-                        {customer.socialMedia.whatsapp && (
-                          <ListItem>
-                            <ListItemText primary={`WhatsApp: ${customer.socialMedia.whatsapp}`} />
                           </ListItem>
                         )}
                       </List>
