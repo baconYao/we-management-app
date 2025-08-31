@@ -90,7 +90,7 @@ export default function Layout({ children, title }: LayoutProps) {
             <ListItemIcon>
               <NotificationsIcon />
             </ListItemIcon>
-            <ListItemText primary="事件通知" />
+            <ListItemText primary="耗材更換通知" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>

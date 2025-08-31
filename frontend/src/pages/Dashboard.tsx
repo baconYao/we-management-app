@@ -148,7 +148,7 @@ export default function Dashboard() {
             <ListItemIcon>
               <NotificationsIcon />
             </ListItemIcon>
-            <ListItemText primary="事件通知" />
+            <ListItemText primary="耗材更換通知" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
