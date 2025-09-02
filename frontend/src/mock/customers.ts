@@ -263,4 +263,96 @@ export const initialCustomers: Customer[] = [
       wechat: "zhengshier456",
     },
   },
+  {
+    id: 11,
+    uid: "CUS20240301011",
+    memberId: "M011",
+    name: "劉十三",
+    gender: "male",
+    birthDate: "1989-01-08",
+    address: "台北市大同區延平北路二段15號",
+    phone: "0923-456-789",
+    email: "liu.shisan@example.com",
+    socialMedia: {
+      line: "liushisan123",
+    },
+    joinDate: "2023-07-12",
+    waterPurifiers: [
+      {
+        model: "廚下型",
+        serialNumber: "WP2024011",
+        installationDate: "2024-03-01",
+        installationPerson: "張奕清",
+        location: "廚房",
+        maintenanceRecords: [
+          {
+            date: "2024-03-01",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 12,
+    uid: "CUS20240301012",
+    memberId: null,
+    name: "孫十四",
+    gender: "female",
+    birthDate: "1994-11-03",
+    address: "台北市中正區忠孝東路一段108號",
+    phone: "0934-567-890",
+    email: "sun.shisi@example.com",
+    socialMedia: {
+      wechat: "sunshisi789",
+    },
+    waterPurifiers: [
+      {
+        model: "桌上型",
+        serialNumber: "WP2024012",
+        installationDate: "2024-02-15",
+        installationPerson: "張奕清",
+        location: "客廳",
+        maintenanceRecords: [
+          {
+            date: "2024-02-15",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 13,
+    uid: "CUS20240301013",
+    memberId: "M013",
+    name: "郭十五",
+    gender: "male",
+    birthDate: "1984-12-25",
+    address: "台北市信義區松仁路100號",
+    phone: "0945-678-901",
+    email: "guo.shiwu@example.com",
+    socialMedia: {
+      line: "guoshiwu456",
+    },
+    joinDate: "2023-04-18",
+    waterPurifiers: [
+      {
+        model: "廚下型",
+        serialNumber: "WP2024013",
+        installationDate: "2024-01-10",
+        installationPerson: "張奕清",
+        location: "廚房",
+        maintenanceRecords: [
+          {
+            date: "2024-01-10",
+            items: ["前置濾心", "RO膜", "後置濾心", "活性碳濾心"],
+            notes: "新機安裝",
+          },
+        ],
+      },
+    ],
+  },
 ];
